@@ -1,6 +1,7 @@
 import app from "./app.js";
-import sequelize from "./db.js";
+import db from '../models/index.js';
 import env from './env.js'
+const { sequelize } = db;
 
 
 const startApp = async () => {

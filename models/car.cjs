@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     manufacturer: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'CAR',
+    modelName: 'Car',
   });
   return CAR;
 };
