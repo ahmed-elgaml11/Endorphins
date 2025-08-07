@@ -16,8 +16,8 @@ export default (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'PRODUCT',
+    modelName: 'Product', 
   });
   
-  return USER;
+  return PRODUCT;
 };
