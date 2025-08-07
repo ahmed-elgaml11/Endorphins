@@ -3,7 +3,7 @@ import cros from 'cors'
 import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet'
 import api from './api/index.js'
-
+import errorHandler from "./midllewares/errorHandler.js";
 
 
 
@@ -41,7 +41,7 @@ app.use('/api/v1', api)
 app.all('/*anything',(req, res, next) => {
     next(new AppError(`Not Found - ${req.originalUrl}`, 404))
 })
-// app.use(errorHandler)
+app.use(errorHandler)
 
 
 export default app 
