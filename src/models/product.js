@@ -11,6 +11,12 @@ export default (sequelize, DataTypes) => {
     }
   }
   PRODUCT.init({
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4, // auto-generate UUID v4
+        primaryKey: true,
+        allowNull: false,
+      },
     name: DataTypes.STRING,
     price: DataTypes.INTEGER,
     description: DataTypes.STRING

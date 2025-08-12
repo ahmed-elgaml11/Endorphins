@@ -1,5 +1,5 @@
-import { catchAsync } from '../utils/catchAsync';
-import { AppError } from '../utils/appError';
+import { catchAsync } from "../utils/catchAsync.js";
+import { AppError } from "../utils/appError.js";
 
 export const validateRequest = (schema) => {
     return catchAsync(async (req, res, next) => {
@@ -9,14 +9,17 @@ export const validateRequest = (schema) => {
         });
 
         if (!result.success) {
-            const messages = result.error.errors
+            const messages = result.error.issues
                 .map((err) => {
-                    return `${err.path.slice(-1)[0]}: ${err.message}`
+                    return `${err.path.slice(-1)[0]}: ${err.message}`;
                 })
-                .join(',  ');
-            throw new AppError(`Validation Error: ${messages || 'Validation Failed'}`, 400);
+                .join(",  ");
+            throw new AppError(
+                `Validation Error: ${messages || "Validation Failed"}`,
+                400
+            );
         }
-    })
+        next();
 
-    next();
+    });
 };

@@ -4,7 +4,7 @@ import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet'
 import api from './routes/index.js'
 import errorHandler from "./midllewares/errorHandler.js";
-
+import { AppError } from './utils/appError.js'
 
 
 const app = express();
