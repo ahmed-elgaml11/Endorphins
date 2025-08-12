@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
-import userRoutes from './users/user.routes.js'
+import productRoutes from './product.router.js'
+import categoryRoutes from './category.router.js'
 
 
 router.get('/', (req, res) => {
@@ -10,6 +11,7 @@ router.get('/', (req, res) => {
 })
 
 
-router.use('/users', userRoutes)
+router.use('/products', productRoutes)
+router.use('/categories', categoryRoutes)
 
 export default router

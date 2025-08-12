@@ -1,4 +1,4 @@
-import env from '../src/env.js'
+import env from '../env.js'
 const config = {
   development: {
     username: env.DB_USERNAME,

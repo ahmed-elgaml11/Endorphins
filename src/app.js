@@ -2,7 +2,7 @@ import express from "express";
 import cros from 'cors'
 import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet'
-import api from './api/index.js'
+import api from './routes/index.js'
 import errorHandler from "./midllewares/errorHandler.js";
 
 

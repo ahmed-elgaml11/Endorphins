@@ -1,5 +1,5 @@
 import app from "./app.js";
-import db from '../models/index.js';
+import db from './models/index.js';
 import env from './env.js'
 const { sequelize, Product, Category } = db;
 
