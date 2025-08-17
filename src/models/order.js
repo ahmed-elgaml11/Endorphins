@@ -3,6 +3,7 @@ export default (sequelize, DataTypes) => {
     class ORDER extends Model {
         static associate(models) {
             ORDER.belongsTo(models.User)
+            ORDER.belongsTo(models.Cart)
         }
 
     }
@@ -10,7 +11,11 @@ export default (sequelize, DataTypes) => {
         {
             name: DataTypes.STRING,
             description: DataTypes.STRING,
-            price: DataTypes.STRING
+            price: DataTypes.STRING,
+            status: {
+                type: DataTypes.STRING,
+                defaultValue: 'active'
+            }
         },
         { sequelize, modelName: "Order" }
     );

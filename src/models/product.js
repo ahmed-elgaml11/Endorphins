@@ -8,6 +8,8 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       PRODUCT.belongsTo(models.Category)
+      PRODUCT.belongsToMany(models.Cart, { through: 'cartItems' });
+
     }
   }
   PRODUCT.init({

@@ -3,6 +3,7 @@ export default (sequelize, DataTypes) => {
     class USER extends Model {
         static associate(models) {
             USER.hasMany(models.Order)
+            USER.hasOne(models.Cart)
         }
 
     }
