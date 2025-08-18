@@ -1,29 +1,10 @@
-import cartItem from "../models/cartItem.js";
 import { AppError } from "../utils/appError.js";
-import db from "../models/index.js";
 import { catchAsync } from "../utils/catchAsync.js";
-const { Cart, Order } = db;
+import { createOrder } from "../services/order.service.js";
 
 
 export const makeOrder = catchAsync(async (req, res, next) => {
-  const cart = await Cart.findOne({
-    where: {
-      userId: req.user.id,
-      status: "active",
-    },
-    include: [
-      {
-        model: cartItem,
-        attributes: ["quantity"],
-        include: [
-          {
-            model: Product,
-            attributes: ["id", "name", "price"],
-          },
-        ],
-      },
-    ],
-  });
+  const cart = await getUserCart(req.user.id)
 
   if (!cart) return next(new AppError(404, "No active cart found"));
 
@@ -31,17 +12,12 @@ export const makeOrder = catchAsync(async (req, res, next) => {
     (sum, item) => sum + item.quantity * item.Product.price,
     0
   );
-  let description;
-  cart.cartItem.forEach((item) => {
-    description += `${item.Product.name}: ${item.Product.price}\n`;
-  });
 
-  const order = await Order.create({
-    price: totalPrice,
-    cartId: cart.id,
-    description,
-    userId: req.user.id,
-  });
+  const description = cart.cartItems.Product.map(
+    (product) => `${product.name}: ${product.price}`
+  ).join("\n");
+
+  const order = await createOrder(totalPrice, cart.id, description, req.user.id)
 
   res.status(201).json({
     status: "success",

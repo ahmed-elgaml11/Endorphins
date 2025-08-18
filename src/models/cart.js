@@ -1,5 +1,5 @@
 import { Model } from 'sequelize';
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   class Cart extends Model {
     /**
      * Helper method for defining associations.
@@ -7,9 +7,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-  Cart.belongsTo(models.User, { foreignKey: 'userId' });
-  Cart.hasOne(models.Order);  
-  Cart.belongsToMany(models.Product, { through: 'cartItems' });
+      Cart.belongsTo(models.User, { foreignKey: 'userId' });
+      Cart.hasOne(models.Order);  
+      Cart.belongsToMany(models.Product, { through: 'cartItems' });
   }
   }
   Cart.init({
