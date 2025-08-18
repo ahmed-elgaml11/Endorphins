@@ -1,18 +1,18 @@
 import { Model } from 'sequelize';
 module.exports = (sequelize, DataTypes) => {
-  class CART extends Model {
+  class Cart extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-  CART.belongsTo(models.User, { foreignKey: 'userId' });
-  CART.hasOne(models.Order);  
-  CART.belongsToMany(models.Product, { through: 'cartItems' });
+  Cart.belongsTo(models.User, { foreignKey: 'userId' });
+  Cart.hasOne(models.Order);  
+  Cart.belongsToMany(models.Product, { through: 'cartItems' });
   }
   }
-  CART.init({
+  Cart.init({
     userId: DataTypes.INTEGER,
     status: {
       type: DataTypes.STRING,
@@ -22,5 +22,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Cart',
   });
-  return CART;
+  return Cart;
 };

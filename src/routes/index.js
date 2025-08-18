@@ -2,6 +2,8 @@ import express from "express";
 const router = express.Router();
 import productRoutes from './product.router.js'
 import categoryRoutes from './category.router.js'
+import orderRoutes from './order.router.js'
+import cartRoutes from './cart.router.js'
 
 
 router.get('/', (req, res) => {
@@ -13,5 +15,7 @@ router.get('/', (req, res) => {
 
 router.use('/products', productRoutes)
 router.use('/categories', categoryRoutes)
+router.use('/orders', orderRoutes)
+router.use('/carts', cartRoutes)
 
 export default router

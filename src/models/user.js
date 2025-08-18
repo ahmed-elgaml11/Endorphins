@@ -1,13 +1,13 @@
 import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-    class USER extends Model {
+    class User extends Model {
         static associate(models) {
-            USER.hasMany(models.Order)
-            USER.hasOne(models.Cart)
+            User.hasMany(models.Order)
+            User.hasOne(models.Cart)
         }
 
     }
-    USER.init(
+    User.init(
         {
             name: DataTypes.STRING,
             phone: DataTypes.STRING,
@@ -18,5 +18,5 @@ export default (sequelize, DataTypes) => {
             modelName: "User",
         }
     );
-    return USER
+    return User
 };

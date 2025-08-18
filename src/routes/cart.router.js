@@ -1,13 +1,14 @@
 import express from "express";
 const router = express.Router();
-import * as cartControllers from '../controllers/cart.controllers.js'
 import { validateRequest } from "../midllewares/validateRequest.js";
+import { addToCart } from "../controllers/cart.controllers.js";
+import { addToCartSchema } from "../schemas/cart.shema.js";
 
 
 
 
 
-router.route('/add', cartControllers.addToCart)
+router.post('/add/:productId', validateRequest(addToCartSchema), addToCart)
     
 
 

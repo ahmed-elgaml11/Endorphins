@@ -1,24 +1,25 @@
 import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-    class ORDER extends Model {
+    class Order extends Model {
         static associate(models) {
-            ORDER.belongsTo(models.User)
-            ORDER.belongsTo(models.Cart)
+            Order.belongsTo(models.User);
+            Order.belongsTo(models.Cart);
         }
-
     }
-    ORDER.init(
+    Order.init(
         {
-            name: DataTypes.STRING,
             description: DataTypes.STRING,
-            price: DataTypes.STRING,
+            price: {
+                type: DataTypes.DECIMAL(10, 2), // better for money than STRING
+                allowNull: false,
+            },
             status: {
                 type: DataTypes.STRING,
-                defaultValue: 'active'
-            }
+                defaultValue: "active",
+            },
         },
         { sequelize, modelName: "Order" }
     );
 
-    return ORDER
-}
+    return Order;
+};
