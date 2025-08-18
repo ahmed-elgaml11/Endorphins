@@ -1,4 +1,3 @@
-import { Response, Request, NextFunction } from "express";
 
 export const isAuth = (req, res, next) => {
     if(req.isAuthenticated()){

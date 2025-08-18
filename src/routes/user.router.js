@@ -9,7 +9,7 @@ import { loginUserSchema, registerUserSchema } from "../schemas/user.schema.js";
 
 
 router.post('/signup', validateRequest(registerUserSchema), signup)
-router.post('/login', validateRequest(loginUserSchema), passport.authenticate('local'),  login)
+router.post('/login', validateRequest(loginUserSchema), passport.authenticate('local'), login)
 router.get('/logout', logout);
 
 

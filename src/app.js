@@ -11,6 +11,7 @@ const SequelizeStore = SequelizeSession(session.Store);
 import db from "./models/index.js";
 import './config/passport-local.js'
 import env from "./env.js";
+import passport from 'passport'
 
 
 
