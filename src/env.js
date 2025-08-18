@@ -15,5 +15,6 @@ const envSchema = z.object({
   DATABASE: z.string().min(1, "DB name is required"),
   HOST: z.string().min(1, "DB host is required"),
   DIALECT: z.string().min(1, "DIALECT is required"),
+  SESSION_SECRET: z.string()
 });
 export default envSchema.parse(process.env);

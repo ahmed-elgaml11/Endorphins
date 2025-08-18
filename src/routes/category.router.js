@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import * as categoryControllers from '../controllers/category.controllers.js'
+import * as categoryControllers from '../controllers/category.controller.js'
 import { validateRequest } from "../midllewares/validateRequest.js";
 import {addCategorySchema, getCategorySchema, updateCategorySchema } from '../schemas/category.schema.js'
 
