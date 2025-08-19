@@ -7,13 +7,13 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Category.hasMany(models.Product)
+      Category.hasMany(models.Product);
     }
   }
   Category.init({
     id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, 
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     name: DataTypes.STRING

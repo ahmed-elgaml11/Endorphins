@@ -15,7 +15,7 @@ export default (sequelize, DataTypes) => {
             },
             status: {
                 type: DataTypes.STRING,
-                defaultValue: "active",
+                defaultValue: "pending",
             },
         },
         { sequelize, modelName: "Order" }

@@ -1,6 +1,7 @@
 import {catchAsync} from "../utils/catchAsync.js";
 import * as Services from "../services/product.service.js";
 import { AppError } from "../utils/appError.js";
+import { getCategoryByName } from "../services/category.service.js";
 
 export const getAllProducts = catchAsync(async (req, res, next) => {
     const products = await Services.getAll();
@@ -13,7 +14,15 @@ export const getAllProducts = catchAsync(async (req, res, next) => {
     });
 });
 export const createProduct = catchAsync(async (req, res, next) => {
-    const product = await Services.createOne(req.body);
+    const { name, price, description, categoryName } = req.body;
+    const category = await getCategoryByName(categoryName)
+
+    const product = await Services.createOne({
+        name,
+        price,
+        description,
+        CategoryId: category.id
+    });
 
     res.status(201).json({
         status: "success",

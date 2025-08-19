@@ -65,3 +65,5 @@ export const deleteCategory = catchAsync(async (req, res, next) => {
         data: {},
     });
 });
+
+

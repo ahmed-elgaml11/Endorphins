@@ -5,10 +5,12 @@ export const validateRequest = (schema) => {
     return catchAsync(async (req, res, next) => {
         const result = schema.safeParse({
             body: req.body,
-            params: req.params,
+            params: req.params
         });
 
         if (!result.success) {
+            console.log(req.body);
+            
             const messages = result.error.issues
                 .map((err) => {
                     return `${err.path.slice(-1)[0]}: ${err.message}`;

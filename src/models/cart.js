@@ -7,13 +7,13 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Cart.belongsTo(models.User, { foreignKey: 'userId' });
+      Cart.belongsTo(models.User);
       Cart.hasOne(models.Order);  
-      Cart.belongsToMany(models.Product, { through: 'cartItems' });
+      Cart.belongsToMany(models.Product, { through: 'CartItems' });
   }
   }
   Cart.init({
-    userId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
     status: {
       type: DataTypes.STRING,
       defaultValue: 'active'

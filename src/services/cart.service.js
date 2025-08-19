@@ -1,14 +1,15 @@
 import db from "../models/index.js"
-const { Cart } = db
+const { Cart, CartItem } = db
 
-export const upsertCart = async (userId) => {
+export const upsertCart = async (UserId) => {
   return await Cart.findOrCreate({
-    where: { userId, status: "active" },
+    where: { UserId, status: "active" },
   });
 }
-export const upsertCartItem = async (cartId, productId, quantity ) => {
+export const upsertCartItem = async (CartId, productId, quantity ) => {
+  
   return await CartItem.findOrCreate({
-    where: { cartId, productId },
+    where: { CartId, ProductId: productId },
     defaults: {
       quantity: quantity || 1,
     },

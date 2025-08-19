@@ -14,7 +14,7 @@ const verifyCallback = async (phone, password, cb) => {
         const user = await User.findOne({ where: { phone } });
         if (!user) { return cb(null, false, { message: 'The user is not found, please signup first!.' }); }
 
-        if (!user.validatePassword(password)) { return cb(null, false); }
+        if (!user.validatePassword(password, user.password)) { return cb(null, false); }
 
         return cb(null, user);
 

@@ -6,7 +6,8 @@ const uuidString = z.uuid({ version: "v4", message: "Invalid UUID v4 format" });
 export const productBodySchema = z.object({
     name: z.string().min(1, "Name is required"),
     price: z.number().int().nonnegative("Price must be a positive integer"),
-    description: z.string().optional()
+    description: z.string().optional(),
+    categoryName: z.string()
 }).strict()
 
 export const addProductSchema = z.object({

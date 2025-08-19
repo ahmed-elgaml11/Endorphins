@@ -27,3 +27,9 @@ export const deleteOne = async(id) => {
         force: true
     })
 }
+
+
+
+export const getCategoryByName = (name) => {
+    return Category.findOne({ where: { name } })
+}

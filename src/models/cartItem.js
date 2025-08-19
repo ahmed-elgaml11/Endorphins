@@ -6,14 +6,14 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // CartItem belongs to Cart
       CartItem.belongsTo(models.Cart, {
-        foreignKey: "cartId",
+        foreignKey: "CartId",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
 
       // CartItem belongs to Product
       CartItem.belongsTo(models.Product, {
-        foreignKey: "productId",
+        foreignKey: "ProductId",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
@@ -27,11 +27,11 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      cartId: {
+      CartId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      productId: {
+      ProductId: {
         type: DataTypes.UUID,
         allowNull: false,
       },
@@ -43,7 +43,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "CartItem",
-      tableName: "cartItems",
+      tableName: "CartItems",
       timestamps: true,
     }
   );

@@ -2,8 +2,8 @@ import { Model } from "sequelize";
 import bcrypt from 'bcrypt'
 export default (sequelize, DataTypes) => {
     class User extends Model {
-        validatePassword(password) {
-            return bcrypt.compareSync(password, this.password);
+        validatePassword(password1, password2) {
+            return bcrypt.compareSync(password1, password2);
         }
 
 
@@ -30,9 +30,6 @@ export default (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "User",
-            defaultScope: {
-                attributes: { exclude: ['password'] }  // hides password everywhere by default
-            },
             hooks: {
                 beforeCreate: async (user) => {
                     user.password = await bcrypt.hash(user.password, 10);

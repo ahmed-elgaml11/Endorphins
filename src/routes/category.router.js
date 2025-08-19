@@ -3,6 +3,7 @@ const router = express.Router();
 import * as categoryControllers from '../controllers/category.controller.js'
 import { validateRequest } from "../midllewares/validateRequest.js";
 import {addCategorySchema, getCategorySchema, updateCategorySchema } from '../schemas/category.schema.js'
+import { isAdmin } from "../midllewares/auth.js";
 
 
 
@@ -10,13 +11,13 @@ import {addCategorySchema, getCategorySchema, updateCategorySchema } from '../sc
 
 router.route('/')
     .get(categoryControllers.getAllCategories)
-    .post(validateRequest(addCategorySchema), categoryControllers.createCategory)
+    .post(validateRequest(addCategorySchema), isAdmin, categoryControllers.createCategory)
 
 
 router.route('/:id')
     .get(validateRequest(getCategorySchema), categoryControllers.getCategory)
-    .patch(validateRequest(updateCategorySchema), categoryControllers.updateCategory)
-    .delete(validateRequest(getCategorySchema), categoryControllers.deleteCategory)
+    .patch(validateRequest(updateCategorySchema), isAdmin, categoryControllers.updateCategory)
+    .delete(validateRequest(getCategorySchema), isAdmin, categoryControllers.deleteCategory)
     
 
 
