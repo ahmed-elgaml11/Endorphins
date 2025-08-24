@@ -6,12 +6,19 @@ export const upsertCart = async (UserId) => {
     where: { UserId, status: "active" },
   });
 }
-export const upsertCartItem = async (CartId, productId, quantity ) => {
-  
+export const upsertCartItem = async (CartId, productId, quantity) => {
   return await CartItem.findOrCreate({
     where: { CartId, ProductId: productId },
     defaults: {
-      quantity: quantity || 1,
+      quantity: quantity 
     },
   });
+}
+
+
+export const createNewCart = async (UserId) => {
+  await Cart.create({
+    UserId,
+    status: 'active'
+  })
 }

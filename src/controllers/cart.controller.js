@@ -1,12 +1,17 @@
 import { upsertCart, upsertCartItem } from "../services/cart.service.js";
+import { upsertUser } from "../services/user.services.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 
 export const addToCart = catchAsync(async (req, res) => {
-  const { quantity } = req.body;
+  const quantity = req.body?.quantity ? parseInt(req.body.quantity) : 1;
   const { productId } = req.params
-  const [cart, isCreated] = await upsertCart(req.user.id)
   
+  
+  const [user, _] = await upsertUser(req.sessionID)
+
+  const [cart, __] = await upsertCart(user.id)
+
   const [cartItem, created] = await upsertCartItem(cart.id, productId, quantity)
 
   if (!created) {

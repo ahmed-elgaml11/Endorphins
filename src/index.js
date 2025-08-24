@@ -1,13 +1,14 @@
 import app from "./app.js";
 import db from './models/index.js';
 import env from './env.js'
-const { sequelize, Product, Category } = db;
-
+const { sequelize } = db;
 
 const startApp = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
+
+    
     app.listen(env.PORT, async() => {
       console.log(`Listening on ${env.PORT}`);
       // await sequelize.sync();

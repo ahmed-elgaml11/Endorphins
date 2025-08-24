@@ -8,12 +8,18 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       Cart.belongsTo(models.User);
-      Cart.hasOne(models.Order);  
-      Cart.belongsToMany(models.Product, { through: 'CartItems' });
-  }
+      Cart.hasOne(models.Order, {
+        foreignKey: {
+          name: "CartId",
+          allowNull: true,   
+        },
+        onDelete: "SET NULL",  
+        hooks: true,           
+      }); Cart.belongsToMany(models.Product, { through: 'CartItems' });
+    }
   }
   Cart.init({
-    UserId: DataTypes.INTEGER,
+    UserId: DataTypes.STRING,
     status: {
       type: DataTypes.STRING,
       defaultValue: 'active'

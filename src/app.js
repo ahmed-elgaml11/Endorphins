@@ -4,23 +4,32 @@ import { rateLimit } from "express-rate-limit";
 import helmet from "helmet";
 import api from "./routes/index.js";
 import errorHandler from "./midllewares/errorHandler.js";
-import { AppError } from "./utils/appError.js";
 import session from "express-session";
 import SequelizeSession from "express-session-sequelize";
 const SequelizeStore = SequelizeSession(session.Store);
 import db from "./models/index.js";
-import "./config/passport-local.js";
 import env from "./env.js";
-import passport from "passport";
+import { typeDefs } from './schemas/typeDefs.js'
+import { resolvers } from './utils/resolvers.js'
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@as-integrations/express5";
+import { AppError } from "./utils/appError.js";
 
 
 
 const app = express();
-const { sequelize, Category, Product } = db;
+const server = new ApolloServer({
+    typeDefs,
+    resolvers
+});
+
+await server.start()
+
+const { sequelize } = db;
 const store = new SequelizeStore({
     db: sequelize,
     tableName: "Sessions",
-    
+
 });
 
 
@@ -49,12 +58,9 @@ app.use(
         },
     })
 );
-app.use(passport.initialize());
-app.use(passport.session());
 
 
-
-// rateLimitING
+// rateLimiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -67,7 +73,11 @@ app.get("/", (req, res) => {
         message: "hello from the root",
     });
 });
-app.use("/api/v1", api);
+
+
+app.use('/graphql', expressMiddleware(server));
+
+app.use("/api", api);
 app.use((req, res, next) => {
     next(new AppError(`Not Found - ${req.originalUrl}`, 404));
 });

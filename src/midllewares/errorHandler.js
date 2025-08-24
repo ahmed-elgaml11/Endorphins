@@ -1,12 +1,3 @@
-import { AppError } from '../utils/appError.js';
-
-
-const handleJwtError = () => new AppError('invalid token, please log in again', 401)
-const handleExpiredJWT = () => {
-    return new AppError('your token has expired please log in again', 401)
-}
-
-
 
 const sendErrorDev = (err, res) => {
     res.status(err.statusCode);
@@ -37,17 +28,11 @@ const errorHandler = (err, req, res, next) => {
     err.status = err.status || 'error'
 
     if (process.env.NODE_ENV === 'production') {
-        let error = { ...err };
-
-        if (error.name === 'JsonWebTokenError') error = handleJwtError()
-        if (error.name === 'TokenExpiredError') error = handleExpiredJWT()
     
-        sendErrorProd(error, res)
+        sendErrorProd(err, res)
+    }
         
-    } else if (process.env.NODE_ENV === 'development') {
-        if (err.name === 'JsonWebTokenError') err = handleJwtError()
-        if (err.name === 'TokenExpiredError') err = handleExpiredJWT()
-
+    else if (process.env.NODE_ENV === 'development') {
         sendErrorDev(err, res)
     }
 };
