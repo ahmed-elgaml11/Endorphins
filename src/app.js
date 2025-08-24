@@ -67,6 +67,7 @@ const limiter = rateLimit({
     message: "too many requests from this IP, try again in 15 minutes",
 });
 
+
 app.use("/api", limiter);
 app.get("/", (req, res) => {
     res.json({
